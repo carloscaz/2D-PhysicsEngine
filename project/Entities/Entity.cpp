@@ -1,7 +1,6 @@
 #include "Entity.h"
 
 #include <cstddef>
-
 #include "../OpenGL/Textures/Texture.h"
 #include "../../src/Vertex/Vertex.h"
 #include "../OpenGL/Buffer/Buffer.h"
@@ -63,19 +62,22 @@ void Entity::SetPosition(const Vector3D& _pos)
     m_position = _pos;
 }
 
+void Entity::SetRotation(const Vector3D& _rotation)
+{
+    m_rotation = _rotation;
+}
+
 void Entity::SetScale(const Vector3D& _scale)
 {
     m_scale = _scale;
 }
 
-void Entity::SetFPS(int _fps)
+void Entity::SetWindow(GLFWwindow* _win)
 {
-    m_fps = _fps;
-}
-
-void Entity::SetNumFrames(int _numFrames)
-{
-    m_numFrames = _numFrames;
+    if(m_window)
+    {
+        m_window = _win;
+    }
 }
 
 void Entity::SetShader(Shader* _shader)

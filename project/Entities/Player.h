@@ -7,18 +7,22 @@
 class Player : public Entity
 {
 private:
-	Vector3D m_position;
+	float m_fps = 1;
+	float m_elapsedTime = 0.0f;
+	int m_currentFrame = 0;
+	int m_numFrames = 1;
+
 	Vector3D m_velocity;
-	GLFWwindow* m_window;
 
 public:
 	Player();
 	const Vector3D& GetPosition() const;
 	const Vector3D& GetVelocity() const;
-
-	void SetPosition(const Vector3D& _pos);
+	
 	void SetVelocity(const Vector3D& _vel);
-	void SetWindow(GLFWwindow* _win);
+
+	void SetFPS(float _fps);
+	void SetNumFrames(float _numFrames);
 
 	void Tick(float _deltaTime) override;
 	void Draw();

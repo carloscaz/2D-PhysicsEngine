@@ -43,21 +43,22 @@ const Vector3D& Player::GetVelocity() const
     return m_velocity;
 }
 
-void Player::SetPosition(const Vector3D& _pos)
-{
-    m_position = _pos;
-}
-
 void Player::SetVelocity(const Vector3D& _vel)
 {
     m_velocity = _vel;
 }
 
-void Player::SetWindow(GLFWwindow* _win)
+void Player::SetFPS(float _fps)
 {
-    m_window = _win;
-    glfwSetWindowUserPointer(_win, this);
-    //glfwSetKeyCallback(_win, key_callback);
+    m_fps = _fps;
+}
+
+void Player::SetNumFrames(float _numFrames)
+{
+    if(_numFrames > 0)
+    {
+        m_numFrames = _numFrames;
+    }
 }
 
 void Player::Tick(float _deltaTime)

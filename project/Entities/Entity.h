@@ -6,6 +6,7 @@ class Shader;
 class Texture;
 class Vector3D;
 class State;
+class GLFWwindow;
 
 class Entity
 {
@@ -14,24 +15,24 @@ protected:
     Vector3D m_rotation;
     Vector3D m_scale;
 
+    GLFWwindow* m_window;
+
     Texture* m_texture = nullptr;
 
     Buffer* m_buffer;
     Shader* m_shader;
 
-    float m_fps = 1;
-    float m_elapsedTime = 0.0f;
-    int m_currentFrame = 0;
-    int m_numFrames = 1;
+
 public:
     Entity();
 
     void SetTexture(const char* _filename);
+    
     void SetPosition(const Vector3D& _pos);
+    void SetRotation(const Vector3D& _rotation);
     void SetScale(const Vector3D& _scale);
 
-    void SetFPS(int _fps);
-    void SetNumFrames(int _numFrames);
+    void SetWindow(GLFWwindow* _win);
 
     void SetShader(Shader* _shader);
 
