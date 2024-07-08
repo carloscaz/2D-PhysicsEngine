@@ -72,6 +72,21 @@ void Entity::SetScale(const Vector3D& _scale)
     m_scale = _scale;
 }
 
+Vector3D Entity::GetPosition()
+{
+    return m_position;
+}
+
+Vector3D Entity::GetScale()
+{
+    return m_scale;
+}
+
+void Entity::AddComponent(Component* _component)
+{
+    m_components.push_back(_component);
+}
+
 void Entity::SetWindow(GLFWwindow* _win)
 {
     if(m_window)

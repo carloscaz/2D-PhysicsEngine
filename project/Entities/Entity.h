@@ -1,5 +1,8 @@
 #pragma once
+#include <vector>
+
 #include "../../project/Math/Vector3D/Vector3D.h"
+#include "../Components/Component.h"
 
 class Buffer;
 class Shader;
@@ -22,6 +25,8 @@ protected:
     Buffer* m_buffer;
     Shader* m_shader;
 
+    std::vector<Component*> m_components;
+
 
 public:
     Entity();
@@ -32,8 +37,13 @@ public:
     void SetRotation(const Vector3D& _rotation);
     void SetScale(const Vector3D& _scale);
 
-    void SetWindow(GLFWwindow* _win);
+    Vector3D GetPosition();
+    Vector3D GetRotation();
+    Vector3D GetScale();
 
+    void AddComponent(Component* _component);
+
+    void SetWindow(GLFWwindow* _win);
     void SetShader(Shader* _shader);
 
     Texture* GetTexture();

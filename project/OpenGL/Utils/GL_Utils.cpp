@@ -7,6 +7,7 @@
 #include "../Buffer/Buffer.h"
 #include "../Shaders/Shader.h"
 #include "../Textures/Texture.h"
+#include "../../OpenGL/State/State.h"
 #include "GL/glew.h"
 #include "../glfw/glfw3.h"
 //Set up 2D env
@@ -77,6 +78,8 @@ bool Init(GLFWwindow*& _win, float _width, float _height)
     glfwMakeContextCurrent(_win);
 
     glewInit();
+
+    State::Getinstance()->SetWindow(_win);
     return true;
 }
 

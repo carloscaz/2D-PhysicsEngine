@@ -5,6 +5,7 @@
 #include "../lib/glew/GL/glew.h"
 #include "../lib/glfw/glfw3.h"
 #include <iostream>
+#include <random>
 #include <vector>
 #include <GL/wglew.h>
 
@@ -13,6 +14,7 @@
 #include "../project/OpenGL/Textures/Texture.h"
 #include "../project/OpenGL/Utils/GL_Utils.h"
 #include "../project//Entities/World.h"
+#include "../project/Entities/Ball/Ball.h"
 #include "../project/OpenGL/State/State.h"
 #include "../project/Math/Matrix3D/Matrix3D.h"
 #include "../project/OpenGL/Shaders/Shader.h"
@@ -24,6 +26,11 @@
 
 
 int main() {
+	//Random number generator with C++ 11
+	std::random_device rd;  
+	std::mt19937 gen(rd());
+	std::uniform_int_distribution<> distr(-150, 150);
+	
 	//Init GLFW & Glew
 	GLFWwindow* win;
 	if(!Init(win, SCREEN_WIDTH, SCREEN_HEIGHT))
@@ -34,14 +41,21 @@ int main() {
 	//Shader creation
 	Shader* basicShader = Shader::Load("data/SpriteShader/vertex.glsl", "data/SpriteShader/fragment.glsl");
 	Shader* animatedShader = Shader::Load("data/AnimatedSprite/vertex.glsl", "data/AnimatedSprite/fragment.glsl");
-	
-	//Entity creation
-	
 
-
-	//Add entities to world
+	//World Creation
 	World* myWorld = World::GetInstance();
-
+	
+	//Entity creation && add to the world
+	for (int i = 0; i < 20; ++i)
+	{
+		Ball* ball = new Ball();
+		ball->SetShader(basicShader);
+		ball->SetTexture("data/Textures/Ball.png");
+		ball->SetPosition(Vector3D(0 + (rand() % 800), 0 + (rand() % 600), 0));
+		ball->SetVelocity(Vector3D(distr(gen), distr(gen), 0.0f));
+		ball->SetRadius(ball->GetTexture()->GetTextureData().texWidth / 2);
+		myWorld->AddEntity(ball);
+	}
 
 	//Set up env
 	SetUp2D(SCREEN_WIDTH, SCREEN_HEIGHT);

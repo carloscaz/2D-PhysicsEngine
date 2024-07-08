@@ -12,7 +12,7 @@ public:
     Vector3D(float _X, float _Y, float _Z);
 
 #pragma region Basic vector operations
-    Vector3D operator+ (Vector3D& _other);
+    Vector3D operator+ (const Vector3D& _other);
     Vector3D operator+= (Vector3D& _other);
     Vector3D operator- (Vector3D& _other);
     Vector3D operator-= (Vector3D& _other);

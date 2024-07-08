@@ -12,7 +12,7 @@ Vector3D::Vector3D(float _X, float _Y, float _Z)
     Z(_Z)
 {}
 
-Vector3D Vector3D::operator+(Vector3D& _other)
+Vector3D Vector3D::operator+(const Vector3D& _other)
 {
     return Vector3D(X + _other.X, Y + _other.Y, Z + _other.Z);
 }
