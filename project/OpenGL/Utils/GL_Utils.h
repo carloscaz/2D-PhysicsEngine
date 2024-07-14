@@ -15,6 +15,7 @@ void SetUp2D(float _screenWidth, float _screenHeight);
 
 //Set up OpenGl & GLFW
 bool Init(GLFWwindow*& _win, float _width, float _height);
+
 //Draw primitives
 void DrawRect(const Vector3D& _pos, float _width, float _height);
 void DrawLine(const Vector3D& _pos1, const Vector3D& _pos2);

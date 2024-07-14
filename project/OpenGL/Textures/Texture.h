@@ -9,10 +9,10 @@ private:
         int texHeight = 0;
     };
     TextureDimensions texData;
+    Texture(); //Private constructor. Creation method only with Load function
 public:
     unsigned int tex = 0;
-
-    Texture();
+    
     static Texture* Load(const char* _filename);
 
     unsigned int GetId();

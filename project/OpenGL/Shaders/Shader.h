@@ -14,7 +14,7 @@ private:
     char errorLog[1024];
 
     unsigned int m_id;
-    Shader();
+    Shader(){}; //Private constructor. Method creation only available with Load function
 public:
     unsigned int GetId();
     static Shader* Load(const char* _vertexFile, const char* _fragmentFile);

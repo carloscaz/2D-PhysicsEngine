@@ -2,10 +2,7 @@
 
 State* State::m_instance = nullptr;
 
-State::State()
-{
 
-}
 GLFWwindow* State::GetWindow()
 {
 	return m_window;
@@ -21,6 +18,7 @@ State* State::Getinstance()
 	return m_instance;
 }
 
+//Set GLFW window
 void State::SetWindow(GLFWwindow* _win)
 {
 	if (_win)

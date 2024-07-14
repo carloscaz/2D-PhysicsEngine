@@ -5,10 +5,7 @@
 #include "../../../src/Vertex/Vertex.h"
 #include "../../project/OpenGL/Shaders/Shader.h"
 #include "GL/glew.h"
-#include "../glm/glm.hpp"
-#include "../glm/gtc/matrix_transform.hpp"
 #include "../glm/gtc/type_ptr.hpp"
-#include "../../project/OpenGL/Textures/Texture.h"
 
 
 Buffer::Buffer(Vertex _vertices[], unsigned int _elements[], unsigned int _verticesSize, unsigned int _indicesSize)
@@ -16,17 +13,21 @@ Buffer::Buffer(Vertex _vertices[], unsigned int _elements[], unsigned int _verti
     sizeIndices(_indicesSize),
     sizeVertices(_verticesSize)
 {
+    //Generation of the buffers
     glGenBuffers(1, &VBO);
     glGenBuffers(1, &EBO);
     glGenVertexArrays(1, &VAO);
 
+    //Bind buffers
     glBindVertexArray(VAO);
     glBindBuffer(GL_ARRAY_BUFFER, VBO);
     glBindBuffer(GL_ELEMENT_ARRAY_BUFFER, EBO);
 
+    //Update Buffers with data
     glBufferData(GL_ARRAY_BUFFER, sizeVertices, _vertices, GL_STATIC_DRAW);
     glBufferData(GL_ELEMENT_ARRAY_BUFFER, sizeIndices, _elements, GL_STATIC_DRAW);
 
+    //Configure AttribPointers
     glVertexAttribPointer(0, 3, GL_FLOAT, GL_FALSE, sizeof(Vertex), (void*) offsetof(Vertex, m_pos));
     glEnableVertexAttribArray(0);
 

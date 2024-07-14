@@ -1,7 +1,6 @@
 #pragma once
 #include "../../project/Math/Vector3D/Vector3D.h"
 #include "../../project/Math/Vector2D/Vector2D.h"
-#include "../../project/Math/Vector4D/Vector4D.h"
 
 class Vertex
 {

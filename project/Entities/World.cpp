@@ -22,7 +22,7 @@ const std::vector<Entity*>& World::GetEntities() const
 	return m_entities;
 }
 
-const float World::GetDeltaTime()
+float World::GetDeltaTime()
 {
 	return deltaTime;
 }
@@ -38,11 +38,6 @@ void World::SetDeltaTime(float _deltaTime)
 	{
 		deltaTime = _deltaTime;
 	}
-}
-
-std::vector<Entity*>& World::GetEntities()
-{
-	return m_entities;
 }
 
 void World::Tick(float _deltaTime)

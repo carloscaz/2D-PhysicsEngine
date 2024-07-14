@@ -54,7 +54,7 @@ public:
     Texture* GetTexture()const ;
     Buffer* GetBuffer() const;
     
-    virtual void Tick(float _deltaTime);
+    virtual void Tick(float _deltaTime) = 0;
     virtual void Draw();
 
 

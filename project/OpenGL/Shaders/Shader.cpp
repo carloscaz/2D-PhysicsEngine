@@ -10,50 +10,6 @@
 #include <iostream>
 #include <sstream>
 
-Shader::Shader()
-{
-    // VertexShader = glCreateShader(GL_VERTEX_SHADER);
-    // glShaderSource(VertexShader, 1, &vertexShaderSource, nullptr);
-    // glCompileShader(VertexShader);
-    // glGetShaderiv(VertexShader, GL_COMPILE_STATUS, &retCode);
-    // if (retCode == GL_FALSE)
-    // {
-    //     glGetShaderInfoLog(VertexShader, sizeof(errorLog), nullptr, errorLog);
-    //     //m_error = errorLog;
-    //     std::cout << "ERROR::SHADER::VERTEX::COMPILATION_FAILED\n" << errorLog << std::endl;
-    //     glDeleteShader(VertexShader);
-    //     return;
-    // }
-    //
-    // FragmentShader = glCreateShader(GL_FRAGMENT_SHADER);
-    // glShaderSource(FragmentShader, 1, &fragmentShaderSource, nullptr);
-    // glCompileShader(FragmentShader);
-    // glGetShaderiv(FragmentShader, GL_COMPILE_STATUS, &retCode);
-    // if (retCode == GL_FALSE)
-    // {
-    //     glGetShaderInfoLog(VertexShader, sizeof(errorLog), nullptr, errorLog);
-    //     //m_error = errorLog;
-    //     std::cout << "ERROR::SHADER::VERTEX::COMPILATION_FAILED\n" << errorLog << std::endl;
-    //     glDeleteShader(VertexShader);
-    //     return;
-    // }
-    //
-    // m_id = glCreateProgram();
-    // glAttachShader(m_id, VertexShader);
-    // glAttachShader(m_id, FragmentShader);
-    // glLinkProgram(m_id);
-    // glGetProgramiv(m_id, GL_LINK_STATUS, &retCode);
-    // if (retCode == GL_FALSE) {
-    //     glGetProgramInfoLog(m_id, sizeof(errorLog), nullptr, errorLog);
-    //     std::cout << "ERROR::SHADER::PROGRAM::LINKING_FAILED\n" << errorLog << std::endl;
-    //     return;
-    // }
-    //
-    // glDeleteShader(VertexShader);
-    // glDeleteShader(FragmentShader);
-    
-}
-
 unsigned int Shader::GetId()
 {
     return m_id;
@@ -62,7 +18,8 @@ unsigned int Shader::GetId()
 void Shader::SetMatrix(const Vector3D& _pos, const Vector3D& _scale)
 {
     glUseProgram(m_id);
-    
+
+    //MVP matrix
     glm::mat4 model = glm::mat4(1.0f);
     model = glm::translate(model, glm::vec3(_pos.X, _pos.Y, _pos.Z));
     model = glm::rotate(model, glm::radians(0.0f), glm::vec3(0.0f, 1.0f, 0.0f));
@@ -74,7 +31,8 @@ void Shader::SetMatrix(const Vector3D& _pos, const Vector3D& _scale)
     //view = glm::translate(view, glm::vec3(0.0f, 0.0f, 2.0f));
 
     glm::mat4 mvp = view * proj * model;
-    
+
+    //Set MVP matrix to shader
     unsigned int transformLoc = glGetUniformLocation(m_id, "mvp");
     glUniformMatrix4fv(transformLoc, 1, GL_FALSE, glm::value_ptr(mvp));
 }
@@ -82,27 +40,31 @@ void Shader::SetMatrix(const Vector3D& _pos, const Vector3D& _scale)
 Shader* Shader::Load(const char* _vertexFile, const char* _fragmentFile)
 {
     Shader* newShader = new Shader();
-    // 1. retrieve the vertex/fragment source code from filePath
+    //Retrieve the vertex/fragment source code from filePath
     std::string vertexCode;
     std::string fragmentCode;
     std::ifstream vShaderFile;
     std::ifstream fShaderFile;
-    // ensure ifstream objects can throw exceptions:
+    
+    //Ensure ifstream objects can throw exceptions:
     vShaderFile.exceptions (std::ifstream::failbit | std::ifstream::badbit);
     fShaderFile.exceptions (std::ifstream::failbit | std::ifstream::badbit);
     try 
     {
-        // open files
+        //Open files
         vShaderFile.open(_vertexFile);
         fShaderFile.open(_fragmentFile);
         std::stringstream vShaderStream, fShaderStream;
-        // read file's buffer contents into streams
+        
+        //Read file's buffer contents into streams
         vShaderStream << vShaderFile.rdbuf();
-        fShaderStream << fShaderFile.rdbuf();		
-        // close file handlers
+        fShaderStream << fShaderFile.rdbuf();
+        
+        //Close file handlers
         vShaderFile.close();
         fShaderFile.close();
-        // convert stream into string
+        
+        //Convert stream into string
         vertexCode   = vShaderStream.str();
         fragmentCode = fShaderStream.str();		
     }
@@ -122,7 +84,7 @@ Shader* Shader::Load(const char* _vertexFile, const char* _fragmentFile)
     glShaderSource(vertexShader, 1, &vShaderCode, nullptr);
     glCompileShader(vertexShader);
 
-    // check for shader compile errors in vertex shader
+    //Check for shader compile errors in vertex shader
     int success;
     char infoLog[512];
     glGetShaderiv(vertexShader, GL_COMPILE_STATUS, &success);
@@ -137,7 +99,7 @@ Shader* Shader::Load(const char* _vertexFile, const char* _fragmentFile)
     glShaderSource(fragmentShader, 1, &fShaderCode, nullptr);
     glCompileShader(fragmentShader);
 
-    // check for shader compile errors in fragment shader
+    //Check for shader compile errors in fragment shader
     glGetShaderiv(vertexShader, GL_COMPILE_STATUS, &success);
     if (!success)
     {
@@ -150,7 +112,7 @@ Shader* Shader::Load(const char* _vertexFile, const char* _fragmentFile)
     glAttachShader(newShader->m_id, vertexShader);
     glAttachShader(newShader->m_id, fragmentShader);
     glLinkProgram(newShader->m_id);
-    // check for linking errors
+    //Check for linking errors
     glGetProgramiv(newShader->m_id, GL_LINK_STATUS, &success);
     if (!success)
     {

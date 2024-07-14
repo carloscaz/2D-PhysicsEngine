@@ -16,6 +16,7 @@ Entity::Entity()
     m_rotation = Vector3D(0.0f, 0.0f, 0.0f);
     m_scale = Vector3D(50.0f, 50.0f, 50.0f);
 
+    //Entity vertex creation
     Vertex vertices[] =
     {
         Vertex(Vector3D(0.5f, 0.5f, 0.0f), Vector2D(1.0f, 1.0f)),
@@ -41,13 +42,6 @@ void Entity::SetTexture(const char* _filename)
     if(texSamplerLoc != -1)
     {
         glUniform1i(texSamplerLoc, 0);
-    }
-    
-    GLuint textureLoc = glGetAttribLocation(m_shader->GetId(), "vTex");
-    if (textureLoc != -1)
-    {
-        glEnableVertexAttribArray(textureLoc);
-        glVertexAttribPointer(textureLoc, 2, GL_FLOAT, false, sizeof(Vertex), reinterpret_cast<const void*>(offsetof(Vertex, m_tex)));
     }
     
     SetScale(Vector3D(m_texture->GetTextureData().texWidth * 4, m_texture->GetTextureData().texHeight  * 4, 1));
@@ -118,10 +112,14 @@ void Entity::Tick(float _deltaTime)
 
 void Entity::Draw()
 {
+    //Configure OpenGl with texture
     glBlendFunc(GL_SRC_ALPHA, GL_ONE_MINUS_SRC_ALPHA);
     glBindTexture(GL_TEXTURE_2D, m_texture->tex);
 
+    //Set MVP matrix
     m_shader->SetMatrix(m_position, m_scale);
+
+    //Draw entity
     m_buffer->Draw(m_shader, DrawModes::TRIANGLES);
 }
 

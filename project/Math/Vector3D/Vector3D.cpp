@@ -68,6 +68,26 @@ Vector3D Vector3D::operator*(float _s)
     return Vector3D(X * _s, Y * _s, Z * _s);
 }
 
+Vector3D Vector3D::operator/(float _s)
+{
+    return Vector3D(X / _s, Y / _s, Z / _s);
+}
+
+float Vector3D::Size()
+{
+    return sqrt(X * X + Y * Y + Z * Z);
+}
+
+float Vector3D::Size(Vector3D& _other)
+{
+    return _other.Size();
+}
+
+Vector3D Vector3D::Normalize()
+{
+    return *this / Size();
+}
+
 Vector3D Vector3D::Normalize(Vector3D _other)
 {
     return _other.Normalize();
@@ -85,9 +105,6 @@ float Vector3D::DotProduct(const Vector3D& _other)
 
 float Vector3D::DotProduct(Vector3D& _vec1, Vector3D& _vec2)
 {
-    float dotX = _vec1.X * _vec2.X;
-    float dotY = _vec1.Y * _vec2.Y;
-    float dotZ = _vec1.Z * _vec2.Z;
     float dot = (_vec1.X * _vec2.X) + (_vec1.Y * _vec2.Y) + (_vec1.Z * _vec2.Z);
     return dot;
 }
@@ -123,22 +140,3 @@ Vector3D Vector3D::Projection(Vector3D& _vec1, Vector3D& _vec2)
     return _vec2  * dot;
 }
 
-Vector3D Vector3D::operator/(float _s)
-{
-    return Vector3D(X / _s, Y / _s, Z / _s);
-}
-
-float Vector3D::Size()
-{
-    return sqrt(X * X + Y * Y + Z * Z);
-}
-
-float Vector3D::Size(Vector3D& _other)
-{
-    return _other.Size();
-}
-
-Vector3D Vector3D::Normalize()
-{
-    return *this / Size();
-}

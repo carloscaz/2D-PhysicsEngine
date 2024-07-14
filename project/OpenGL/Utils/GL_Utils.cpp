@@ -6,13 +6,13 @@
 #include "../../../src/Vertex/Vertex.h"
 #include "../Buffer/Buffer.h"
 #include "../Shaders/Shader.h"
-#include "../Textures/Texture.h"
 #include "../../OpenGL/State/State.h"
 #include "GL/glew.h"
 #include "../glfw/glfw3.h"
 //Set up 2D env
 void SetUp2D(float _screenWidht, float _screenHeight)
 {
+    //Set up 2D enviroment
     glDisable(GL_ALPHA_TEST);
     glEnable(GL_BLEND);
     glDisable(GL_DEPTH_TEST);
@@ -60,8 +60,9 @@ void SetUp2D(float _screenWidht, float _screenHeight)
 
 bool Init(GLFWwindow*& _win, float _width, float _height)
 {
-    // init glfw
-    if ( !glfwInit() ) {
+    //Innit glfw
+    if (!glfwInit())
+    {
         std::cout << "could not initialize glfw" << std::endl;
         return false;
     }
@@ -70,13 +71,15 @@ bool Init(GLFWwindow*& _win, float _width, float _height)
     //glfwWindowHint(GLFW_RESIZABLE, false);
     glfwWindowHint(GLFW_SAMPLES, 8);
     _win = glfwCreateWindow(_width, _height, "PixelGL-Next", nullptr, nullptr);
-    if (!_win) {
+    if (!_win)
+    {
         std::cout << "could not create opengl window" << std::endl;
         glfwTerminate();
         return false;
     }
     glfwMakeContextCurrent(_win);
 
+    //INit Glew
     glewInit();
 
     State::Getinstance()->SetWindow(_win);
@@ -84,7 +87,7 @@ bool Init(GLFWwindow*& _win, float _width, float _height)
 }
 
 
-//Draw rectangle
+//Draw rectangle in OpenGl
 void DrawRect(const Vector3D& _pos, float _width, float _height)
 {
     Vertex vertices[] =
@@ -92,7 +95,7 @@ void DrawRect(const Vector3D& _pos, float _width, float _height)
         Vertex(Vector3D(0.5f + _width, 0.5f + _height, 0.0f), Vector2D(1.0f, 1.0f)),
         Vertex(Vector3D(0.5f + _width, 0.0f, 0.0f), Vector2D(1.0f, 0.0f)),
         Vertex(Vector3D(0.0f, 0.0f, 0.0f), Vector2D(0.0f, 0.0f)),
-        Vertex(Vector3D(0.0f,  0.5f + _height, 0.0f), Vector2D(0.0f, 1.0f))
+        Vertex(Vector3D(0.0f, 0.5f + _height, 0.0f), Vector2D(0.0f, 1.0f))
     };
 
     unsigned int indices[]
@@ -100,35 +103,9 @@ void DrawRect(const Vector3D& _pos, float _width, float _height)
         0, 1, 3,
         1, 2, 3
     };
-
-    // Shader* myShader = new Shader();
-    // Buffer* myBuffer = new Buffer(vertices, indices, sizeof(vertices), sizeof(indices));
-    // myShader->SetMatrix(_pos, Vector3D(0, 0, 0));
-    
-    // Texture* texture = Texture::Load("data/Textures/Character.png");
-
-    // unsigned int texSamplerLoc = glGetUniformLocation(myShader->GetId(), "tex");
-    // if(texSamplerLoc != -1)
-    // {
-    //     glUniform1i(texSamplerLoc, 0);
-    // }
-    
-    // GLuint textureLoc = glGetAttribLocation(myShader->GetId(), "vTex");
-    // if (textureLoc != -1)
-    // {
-    //     glEnableVertexAttribArray(textureLoc);
-    //     glVertexAttribPointer(textureLoc, 2, GL_FLOAT, false, sizeof(Vertex), reinterpret_cast<const
-    //     void*>(offsetof(Vertex, m_tex)));
-    // }
-    
-    
-    //glActiveTexture(GL_TEXTURE0);
-    // glBlendFunc(GL_SRC_ALPHA, GL_ONE);
-    //glBindTexture(GL_TEXTURE_2D, texture->tex);
-    
-    //myBuffer->Draw(myShader, DrawModes::TRIANGLES);
 }
 
+//Draw a line in OpenGl
 void DrawLine(const Vector3D& _pos1, const Vector3D& _pos2)
 {
     Vertex vertices[] =
@@ -144,10 +121,10 @@ void DrawLine(const Vector3D& _pos1, const Vector3D& _pos2)
 
     Shader* myShader = Shader::Load("data/SpriteShader/vertex.glsl", "data/SpriteShader/fragment.glsl");
     Buffer* myBuffer = new Buffer(vertices, indices, sizeof(vertices), sizeof(indices));
-    //myShader->SetMatrix(_pos);
     myBuffer->Draw(myShader, DrawModes::LINES);
 }
 
+//Draw a point in OpenGl
 void DrawPoint(const Vector3D& _pos)
 {
     Vertex vertices[] =
@@ -162,14 +139,14 @@ void DrawPoint(const Vector3D& _pos)
 
     Shader* myShader = Shader::Load("data/SpriteShader/vertex.glsl", "data/SpriteShader/fragment.glsl");
     Buffer* myBuffer = new Buffer(vertices, indices, sizeof(vertices), sizeof(indices));
-    //myShader->SetMatrix(_pos);
     myBuffer->Draw(myShader, DrawModes::POINTS);
 }
 
+//Draw a triangle in OpenGl
 void DrawTriangle(const Vector3D& _pos)
 {
     Vertex vertices[] =
-    { 
+    {
         Vertex(Vector3D(-0.1f, 0.0f, 0)),
         Vertex(Vector3D(0.0f, 0.4f, 0)),
         Vertex(Vector3D(0.1f, 0.0f, 0))
@@ -182,8 +159,5 @@ void DrawTriangle(const Vector3D& _pos)
 
     Shader* myShader = Shader::Load("data/SpriteShader/vertex.glsl", "data/SpriteShader/fragment.glsl");
     Buffer* myBuffer = new Buffer(vertices, indices, sizeof(vertices), sizeof(indices));
-    //myShader->SetMatrix(_pos);
     myBuffer->Draw(myShader, DrawModes::TRIANGLES);
-
-    
 }
