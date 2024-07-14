@@ -17,7 +17,7 @@ Vector3D Vector3D::operator+(const Vector3D& _other)
     return Vector3D(X + _other.X, Y + _other.Y, Z + _other.Z);
 }
 
-Vector3D Vector3D::operator+=(Vector3D& _other)
+Vector3D Vector3D::operator+=(const Vector3D& _other)
 {
     this->X += _other.X;
     this->Y += _other.Y;
@@ -25,7 +25,7 @@ Vector3D Vector3D::operator+=(Vector3D& _other)
     return (*this);
 }
 
-Vector3D Vector3D::operator-(Vector3D& _other)
+Vector3D Vector3D::operator-(const Vector3D& _other)
 {
     return Vector3D(X - _other.X, Y - _other.Y, Z - _other.Z);
 }
@@ -38,7 +38,7 @@ Vector3D Vector3D::operator-=(Vector3D& _other)
     return (*this);
 }
 
-Vector3D Vector3D::operator*(Vector3D& _other)
+Vector3D Vector3D::operator*(const Vector3D& _other)
 {
     return Vector3D(X * _other.X, Y * _other.Y, Z * _other.Z);
 }
@@ -85,7 +85,11 @@ float Vector3D::DotProduct(const Vector3D& _other)
 
 float Vector3D::DotProduct(Vector3D& _vec1, Vector3D& _vec2)
 {
-    return (_vec1.X * _vec2.X + _vec2.Y * _vec2.Y + _vec1.Z * _vec2.Z);
+    float dotX = _vec1.X * _vec2.X;
+    float dotY = _vec1.Y * _vec2.Y;
+    float dotZ = _vec1.Z * _vec2.Z;
+    float dot = (_vec1.X * _vec2.X) + (_vec1.Y * _vec2.Y) + (_vec1.Z * _vec2.Z);
+    return dot;
 }
 
 float Vector3D::DotProduct(const Vector3D& _vec1, const Vector3D& _vec2)

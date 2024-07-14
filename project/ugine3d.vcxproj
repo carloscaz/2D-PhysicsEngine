@@ -143,7 +143,11 @@
     <ClInclude Include="Components\CollisionComponent\CollisionComponent.h" />
     <ClInclude Include="Components\Component.h" />
     <ClInclude Include="Entities\Ball\Ball.h" />
+    <ClInclude Include="Entities\Emitter\Emitter.h" />
+    <ClInclude Include="Entities\Emitter\SparkEmitter\GravitySparkEmitter.h" />
+    <ClInclude Include="Entities\Emitter\SparkEmitter\SparkEmitter.h" />
     <ClInclude Include="Entities\Entity.h" />
+    <ClInclude Include="Entities\Particle\Particle.h" />
     <ClInclude Include="Entities\Player.h" />
     <ClInclude Include="Entities\World.h" />
     <ClInclude Include="Math\Matrix3D\Matrix3D.h" />
@@ -237,7 +241,11 @@
     </ClCompile>
     <ClCompile Include="Components\Component.cpp" />
     <ClCompile Include="Entities\Ball\Ball.cpp" />
+    <ClCompile Include="Entities\Emitter\Emitter.cpp" />
+    <ClCompile Include="Entities\Emitter\SparkEmitter\GravitySparkEmitter.cpp" />
+    <ClCompile Include="Entities\Emitter\SparkEmitter\SparkEmitter.cpp" />
     <ClCompile Include="Entities\Entity.cpp" />
+    <ClCompile Include="Entities\Particle\Particle.cpp" />
     <ClCompile Include="Entities\Player.cpp" />
     <ClCompile Include="Entities\World.cpp" />
     <ClCompile Include="Math\Matrix3D\Matrix3D.cpp" />

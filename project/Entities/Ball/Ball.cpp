@@ -7,6 +7,8 @@ Ball::Ball()
     CollisionComponent* collider = new CollisionComponent();
     m_components.push_back(collider);
     collider->SetOwner(this);
+
+    m_lifetime = 10.0f;
 }
 
 Vector3D Ball::GetVelocity()
@@ -19,6 +21,11 @@ float Ball::GetRadius()
     return m_radius;
 }
 
+float Ball::GetRestitution()
+{
+    return m_restitutionCoefficient;
+}
+
 void Ball::SetVelocity(const Vector3D& _velocity)
 {
     m_velocity = _velocity;
@@ -29,13 +36,39 @@ void Ball::SetRadius(float _radius)
     m_radius = _radius;
 }
 
+void Ball::SetGravity(bool _value)
+{
+    m_gravity = _value;
+}
+
 void Ball::Tick(float _deltaTime)
 {
-    for (Component* component : m_components)
+    if(m_active)
     {
-        component->Tick();
-    }
-    Vector3D newPos = m_position + (m_velocity * _deltaTime);
-    m_position = newPos;
+        for (Component* component : m_components)
+        {
+            component->Tick();
+        }
+        if(m_gravity)
+        {
+            m_velocity += m_acceleration * _deltaTime;
+        }
+        Vector3D newPos = m_position + (m_velocity * _deltaTime);
+        m_position = newPos;
+
     
+        m_lifetime -= 1.0f * _deltaTime;
+        if(m_lifetime <= 0.0f)
+        {
+            m_active = false;
+        }
+    }
+}
+
+void Ball::Draw()
+{
+    if(m_active)
+    {
+        Entity::Draw();
+    }
 }

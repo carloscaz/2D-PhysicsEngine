@@ -18,7 +18,9 @@ Buffer::Buffer(Vertex _vertices[], unsigned int _elements[], unsigned int _verti
 {
     glGenBuffers(1, &VBO);
     glGenBuffers(1, &EBO);
+    glGenVertexArrays(1, &VAO);
 
+    glBindVertexArray(VAO);
     glBindBuffer(GL_ARRAY_BUFFER, VBO);
     glBindBuffer(GL_ELEMENT_ARRAY_BUFFER, EBO);
 
@@ -28,6 +30,9 @@ Buffer::Buffer(Vertex _vertices[], unsigned int _elements[], unsigned int _verti
     glVertexAttribPointer(0, 3, GL_FLOAT, GL_FALSE, sizeof(Vertex), (void*) offsetof(Vertex, m_pos));
     glEnableVertexAttribArray(0);
 
+    glVertexAttribPointer(1, 3, GL_FLOAT, GL_FALSE, sizeof(Vertex), (void*) offsetof(Vertex, m_color));
+    glEnableVertexAttribArray(1);
+    
     glVertexAttribPointer(2, 2, GL_FLOAT, GL_FALSE, sizeof(Vertex), (void*) offsetof(Vertex, m_tex));
     glEnableVertexAttribArray(2);
 }
@@ -35,9 +40,6 @@ Buffer::Buffer(Vertex _vertices[], unsigned int _elements[], unsigned int _verti
 void Buffer::Draw(Shader* _shader)
 {
     glUseProgram(_shader->GetId());
-    
-    
-    //glDrawArrays(GL_TRIANGLE_STRIP, 0, 4);
     glDrawElements(GL_TRIANGLES, sizeIndices, GL_UNSIGNED_INT, 0);
 }
 
@@ -63,5 +65,9 @@ void Buffer::Draw(Shader* _shader, DrawModes _mode)
     default:
         break;
     }
-    //glDrawElements(GL_TRIANGLES, 6, GL_UNSIGNED_INT, 0);
+}
+
+unsigned int Buffer::GetBufferVAO()
+{
+    return VAO;
 }

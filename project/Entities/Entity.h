@@ -18,6 +18,9 @@ protected:
     Vector3D m_rotation;
     Vector3D m_scale;
 
+    float m_lifetime;
+    bool m_active = true;
+
     GLFWwindow* m_window;
 
     Texture* m_texture = nullptr;
@@ -31,8 +34,9 @@ protected:
 public:
     Entity();
 
-    void SetTexture(const char* _filename);
+    virtual void Init() = 0;
     
+    void SetTexture(const char* _filename);
     void SetPosition(const Vector3D& _pos);
     void SetRotation(const Vector3D& _rotation);
     void SetScale(const Vector3D& _scale);
@@ -40,13 +44,15 @@ public:
     Vector3D GetPosition();
     Vector3D GetRotation();
     Vector3D GetScale();
+    bool GetActive();
 
     void AddComponent(Component* _component);
 
     void SetWindow(GLFWwindow* _win);
     void SetShader(Shader* _shader);
 
-    Texture* GetTexture();
+    Texture* GetTexture()const ;
+    Buffer* GetBuffer() const;
     
     virtual void Tick(float _deltaTime);
     virtual void Draw();

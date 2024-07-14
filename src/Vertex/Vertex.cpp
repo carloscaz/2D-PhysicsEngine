@@ -17,6 +17,13 @@ m_pos(_pos),
 m_tex(_tex)
 {}
 
+Vertex::Vertex(const Vector3D& _pos, const Vector2D& _tex, const Vector3D& _color)
+: 
+m_pos(_pos),
+m_tex(_tex),
+m_color(_color)
+{}
+
 const Vector3D& Vertex::GetPosition() const
 {
     return m_pos;

@@ -29,10 +29,8 @@ Entity::Entity()
         0, 1, 3,
         1, 2, 3
     };
-
-
+    
     m_buffer = new Buffer(vertices, indices, sizeof(vertices), sizeof(indices));
-    //m_shader = Shader::Load("data/SpriteShader/vertex.glsl", "data/SpriteShader/fragment.glsl");
 }
 
 void Entity::SetTexture(const char* _filename)
@@ -53,7 +51,6 @@ void Entity::SetTexture(const char* _filename)
     }
     
     SetScale(Vector3D(m_texture->GetTextureData().texWidth * 4, m_texture->GetTextureData().texHeight  * 4, 1));
-    //glActiveTexture(GL_TEXTURE0);
 
 }
 
@@ -82,6 +79,11 @@ Vector3D Entity::GetScale()
     return m_scale;
 }
 
+bool Entity::GetActive()
+{
+    return m_active;
+}
+
 void Entity::AddComponent(Component* _component)
 {
     m_components.push_back(_component);
@@ -100,9 +102,14 @@ void Entity::SetShader(Shader* _shader)
     m_shader = _shader;
 }
 
-Texture* Entity::GetTexture()
+Texture* Entity::GetTexture() const
 {
     return m_texture;
+}
+
+Buffer* Entity::GetBuffer() const
+{
+    return m_buffer;
 }
 
 void Entity::Tick(float _deltaTime)

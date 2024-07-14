@@ -12,45 +12,45 @@
 
 Shader::Shader()
 {
-    VertexShader = glCreateShader(GL_VERTEX_SHADER);
-    glShaderSource(VertexShader, 1, &vertexShaderSource, nullptr);
-    glCompileShader(VertexShader);
-    glGetShaderiv(VertexShader, GL_COMPILE_STATUS, &retCode);
-    if (retCode == GL_FALSE)
-    {
-        glGetShaderInfoLog(VertexShader, sizeof(errorLog), nullptr, errorLog);
-        //m_error = errorLog;
-        std::cout << "ERROR::SHADER::VERTEX::COMPILATION_FAILED\n" << errorLog << std::endl;
-        glDeleteShader(VertexShader);
-        return;
-    }
-
-    FragmentShader = glCreateShader(GL_FRAGMENT_SHADER);
-    glShaderSource(FragmentShader, 1, &fragmentShaderSource, nullptr);
-    glCompileShader(FragmentShader);
-    glGetShaderiv(FragmentShader, GL_COMPILE_STATUS, &retCode);
-    if (retCode == GL_FALSE)
-    {
-        glGetShaderInfoLog(VertexShader, sizeof(errorLog), nullptr, errorLog);
-        //m_error = errorLog;
-        std::cout << "ERROR::SHADER::VERTEX::COMPILATION_FAILED\n" << errorLog << std::endl;
-        glDeleteShader(VertexShader);
-        return;
-    }
-
-    m_id = glCreateProgram();
-    glAttachShader(m_id, VertexShader);
-    glAttachShader(m_id, FragmentShader);
-    glLinkProgram(m_id);
-    glGetProgramiv(m_id, GL_LINK_STATUS, &retCode);
-    if (retCode == GL_FALSE) {
-        glGetProgramInfoLog(m_id, sizeof(errorLog), nullptr, errorLog);
-        std::cout << "ERROR::SHADER::PROGRAM::LINKING_FAILED\n" << errorLog << std::endl;
-        return;
-    }
-
-    glDeleteShader(VertexShader);
-    glDeleteShader(FragmentShader);
+    // VertexShader = glCreateShader(GL_VERTEX_SHADER);
+    // glShaderSource(VertexShader, 1, &vertexShaderSource, nullptr);
+    // glCompileShader(VertexShader);
+    // glGetShaderiv(VertexShader, GL_COMPILE_STATUS, &retCode);
+    // if (retCode == GL_FALSE)
+    // {
+    //     glGetShaderInfoLog(VertexShader, sizeof(errorLog), nullptr, errorLog);
+    //     //m_error = errorLog;
+    //     std::cout << "ERROR::SHADER::VERTEX::COMPILATION_FAILED\n" << errorLog << std::endl;
+    //     glDeleteShader(VertexShader);
+    //     return;
+    // }
+    //
+    // FragmentShader = glCreateShader(GL_FRAGMENT_SHADER);
+    // glShaderSource(FragmentShader, 1, &fragmentShaderSource, nullptr);
+    // glCompileShader(FragmentShader);
+    // glGetShaderiv(FragmentShader, GL_COMPILE_STATUS, &retCode);
+    // if (retCode == GL_FALSE)
+    // {
+    //     glGetShaderInfoLog(VertexShader, sizeof(errorLog), nullptr, errorLog);
+    //     //m_error = errorLog;
+    //     std::cout << "ERROR::SHADER::VERTEX::COMPILATION_FAILED\n" << errorLog << std::endl;
+    //     glDeleteShader(VertexShader);
+    //     return;
+    // }
+    //
+    // m_id = glCreateProgram();
+    // glAttachShader(m_id, VertexShader);
+    // glAttachShader(m_id, FragmentShader);
+    // glLinkProgram(m_id);
+    // glGetProgramiv(m_id, GL_LINK_STATUS, &retCode);
+    // if (retCode == GL_FALSE) {
+    //     glGetProgramInfoLog(m_id, sizeof(errorLog), nullptr, errorLog);
+    //     std::cout << "ERROR::SHADER::PROGRAM::LINKING_FAILED\n" << errorLog << std::endl;
+    //     return;
+    // }
+    //
+    // glDeleteShader(VertexShader);
+    // glDeleteShader(FragmentShader);
     
 }
 

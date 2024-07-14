@@ -13,10 +13,10 @@ public:
 
 #pragma region Basic vector operations
     Vector3D operator+ (const Vector3D& _other);
-    Vector3D operator+= (Vector3D& _other);
-    Vector3D operator- (Vector3D& _other);
+    Vector3D operator+= (const Vector3D& _other);
+    Vector3D operator- (const Vector3D& _other);
     Vector3D operator-= (Vector3D& _other);
-    Vector3D operator* (Vector3D& _other);
+    Vector3D operator* (const Vector3D& _other);
     Vector3D operator* (Matrix3D& _other);
     Vector3D operator*= (Vector3D& _other);
     Vector3D operator* (float _s);

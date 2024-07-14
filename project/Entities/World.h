@@ -19,6 +19,8 @@ public:
 	void AddEntity(Entity* _entity);
 	void SetDeltaTime(float _deltaTime);
 
+	std::vector<Entity*>& GetEntities();
+
 	void Tick(float _deltaTime);
 	void Draw();
 };

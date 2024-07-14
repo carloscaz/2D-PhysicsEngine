@@ -40,6 +40,11 @@ void World::SetDeltaTime(float _deltaTime)
 	}
 }
 
+std::vector<Entity*>& World::GetEntities()
+{
+	return m_entities;
+}
+
 void World::Tick(float _deltaTime)
 {
 	for (int i = 0; i < m_entities.size(); ++i)
