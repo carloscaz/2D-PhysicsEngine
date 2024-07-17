@@ -146,7 +146,10 @@
     <ClInclude Include="Entities\Emitter\Emitter.h" />
     <ClInclude Include="Entities\Emitter\SparkEmitter\GravitySparkEmitter.h" />
     <ClInclude Include="Entities\Emitter\SparkEmitter\SparkEmitter.h" />
+    <ClInclude Include="Entities\Emitter\SparkEmitter\SparkJetEmitter.h" />
     <ClInclude Include="Entities\Entity.h" />
+    <ClInclude Include="Entities\ForceField.h" />
+    <ClInclude Include="Entities\MovableEntity.h" />
     <ClInclude Include="Entities\Particle\Particle.h" />
     <ClInclude Include="Entities\Player.h" />
     <ClInclude Include="Entities\World.h" />
@@ -244,7 +247,10 @@
     <ClCompile Include="Entities\Emitter\Emitter.cpp" />
     <ClCompile Include="Entities\Emitter\SparkEmitter\GravitySparkEmitter.cpp" />
     <ClCompile Include="Entities\Emitter\SparkEmitter\SparkEmitter.cpp" />
+    <ClCompile Include="Entities\Emitter\SparkEmitter\SparkJetEmitter.cpp" />
     <ClCompile Include="Entities\Entity.cpp" />
+    <ClCompile Include="Entities\ForceField.cpp" />
+    <ClCompile Include="Entities\MovableEntity.cpp" />
     <ClCompile Include="Entities\Particle\Particle.cpp" />
     <ClCompile Include="Entities\Player.cpp" />
     <ClCompile Include="Entities\World.cpp" />
@@ -265,6 +271,8 @@
   <ItemGroup>
     <Content Include="..\data\AnimatedSprite\fragment.glsl" />
     <Content Include="..\data\AnimatedSprite\vertex.glsl" />
+    <Content Include="..\data\ParticleShader\fragment.glsl" />
+    <Content Include="..\data\ParticleShader\vertex.glsl" />
     <Content Include="..\data\SpriteShader\fragment.glsl" />
     <Content Include="..\data\SpriteShader\vertex.glsl" />
   </ItemGroup>

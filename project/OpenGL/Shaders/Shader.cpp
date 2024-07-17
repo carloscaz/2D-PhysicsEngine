@@ -15,13 +15,13 @@ unsigned int Shader::GetId()
     return m_id;
 }
 
-void Shader::SetMatrix(const Vector3D& _pos, const Vector3D& _scale)
+void Shader::SetMatrix(const Vector3D& _pos, const Vector3D& _scale, float offsetX, float offsetY)
 {
     glUseProgram(m_id);
 
     //MVP matrix
     glm::mat4 model = glm::mat4(1.0f);
-    model = glm::translate(model, glm::vec3(_pos.X, _pos.Y, _pos.Z));
+    model = glm::translate(model, glm::vec3(_pos.X - offsetX, _pos.Y - offsetY, _pos.Z));
     model = glm::rotate(model, glm::radians(0.0f), glm::vec3(0.0f, 1.0f, 0.0f));
     model = glm::scale(model, glm::vec3(_scale.X, _scale.Y, _scale.Z));
 

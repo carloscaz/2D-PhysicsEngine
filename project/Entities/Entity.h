@@ -17,8 +17,7 @@ protected:
     Vector3D m_position;
     Vector3D m_rotation;
     Vector3D m_scale;
-
-    float m_lifetime;
+    
     bool m_active = true;
 
     GLFWwindow* m_window;
@@ -33,7 +32,8 @@ protected:
 
 public:
     Entity();
-
+    ~Entity();
+    
     virtual void Init() = 0;
     
     void SetTexture(const char* _filename);

@@ -3,7 +3,7 @@
 class Entity;
 class Component
 {
-private:
+protected:
     Entity* m_owner;
 public:
     Component();

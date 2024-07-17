@@ -18,44 +18,44 @@ void SetUp2D(float _screenWidht, float _screenHeight)
     glDisable(GL_DEPTH_TEST);
     glEnable(GL_SCISSOR_TEST);
     glEnable(GL_TEXTURE_2D);
-    glEnableClientState(GL_VERTEX_ARRAY);
-    glDisableClientState(GL_NORMAL_ARRAY);
-    glEnableClientState(GL_TEXTURE_COORD_ARRAY);
+    // glEnableClientState(GL_VERTEX_ARRAY);
+    // glDisableClientState(GL_NORMAL_ARRAY);
+    // glEnableClientState(GL_TEXTURE_COORD_ARRAY);
 
-    glViewport(0, 0, _screenWidht, _screenHeight);
-    glScissor(0, 0, _screenWidht, _screenHeight);
-    glMatrixMode(GL_PROJECTION);
-    glLoadIdentity();
-    glOrtho(0, _screenWidht, _screenHeight, 0, 0, 1000);
-    glMatrixMode(GL_MODELVIEW);
-
-    glLoadIdentity();
-    glTranslatef(-0, -0, 0);
-
-    glMatrixMode(GL_PROJECTION);
-    glLoadIdentity();
-    glOrtho(0, _screenWidht, _screenHeight, 0, 0, 1000);
-    glMatrixMode(GL_MODELVIEW);
-
-    glBlendFunc(GL_ONE, GL_ZERO);
-
-    glColor4f(1, 1, 1, 1);
-
-    glDisableClientState(GL_COLOR_ARRAY);
-
-    glEnable(GL_CULL_FACE);
-
-    glDepthMask(1);
-
-    glDisable(GL_LIGHTING);
-
-    float color[] = {0, 0, 0, 1};
-    glDisable(GL_FOG);
-    glFogfv(GL_FOG_COLOR, color);
-    glFogf(GL_FOG_START, 0);
-    glFogf(GL_FOG_END, 0);
-
-    glBindTexture(GL_TEXTURE_2D, 0);
+    // glViewport(0, 0, _screenWidht, _screenHeight);
+    // glScissor(0, 0, _screenWidht, _screenHeight);
+    // glMatrixMode(GL_PROJECTION);
+    // glLoadIdentity();
+    // glOrtho(0, _screenWidht, _screenHeight, 0, 0, 1000);
+    // glMatrixMode(GL_MODELVIEW);
+    //
+    // glLoadIdentity();
+    // glTranslatef(-0, -0, 0);
+    //
+    // glMatrixMode(GL_PROJECTION);
+    // glLoadIdentity();
+    // glOrtho(0, _screenWidht, _screenHeight, 0, 0, 1000);
+    // glMatrixMode(GL_MODELVIEW);
+    //
+    // glBlendFunc(GL_ONE, GL_ZERO);
+    //
+    // glColor4f(1, 1, 1, 1);
+    //
+    // glDisableClientState(GL_COLOR_ARRAY);
+    //
+    // glEnable(GL_CULL_FACE);
+    //
+    // glDepthMask(1);
+    //
+    // glDisable(GL_LIGHTING);
+    //
+    // float color[] = {0, 0, 0, 1};
+    // glDisable(GL_FOG);
+    // glFogfv(GL_FOG_COLOR, color);
+    // glFogf(GL_FOG_START, 0);
+    // glFogf(GL_FOG_END, 0);
+    //
+    // glBindTexture(GL_TEXTURE_2D, 0);
 }
 
 bool Init(GLFWwindow*& _win, float _width, float _height)

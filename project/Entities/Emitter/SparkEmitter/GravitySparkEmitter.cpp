@@ -13,7 +13,7 @@ void GravitySparkEmitter::Init()
     SparkEmitter::Init();
     for (int i = 0; i < numParticles; ++i)
     {
-        particles[i]->setAcceleration(Vector3D(0, 980.0f, 0));
-        particles[i]->checkCollisions(true);
+        m_particles[i]->SetForce(Vector3D(0, 980.0f, 0));
+        m_particles[i]->checkCollisions(true);
     }
 }

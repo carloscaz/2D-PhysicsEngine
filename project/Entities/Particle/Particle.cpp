@@ -9,7 +9,7 @@
 #include "../../src/Vertex/Vertex.h"
 #include "../../OpenGL/Buffer/Buffer.h"
 
-Particle::Particle()
+Particle::Particle(float _minVelocityX, float _maxVelocityX, float _minVelocityY, float _maxVelocityY)
 {
     std::random_device rd;
     std::mt19937 gen(rd());
@@ -32,6 +32,12 @@ Particle::Particle()
     };
     
     m_buffer = new Buffer(vertices, indices, sizeof(vertices), sizeof(indices));
+    AddComponent(new CollisionComponent(this));
+
+    m_minVelocityX = _minVelocityX;
+    m_maxVelocityX = _maxVelocityX;
+    m_minVelocityY = _minVelocityY;
+    m_maxVelocityY = _maxVelocityY;
     
     Init();
     
@@ -42,15 +48,20 @@ void Particle::Init()
     std::random_device rd;
     std::mt19937 gen(rd());
     std::uniform_real_distribution<> lifetimeValue(1.0f, 5.0f);
-    std::uniform_real_distribution<> velocityValue(-1.0f, 1.0f);
+    std::uniform_real_distribution<> velocityValueX(m_minVelocityX, m_maxVelocityX);
+    std::uniform_real_distribution<> velocityValueY(m_minVelocityY, m_maxVelocityY);
+
+    float value = velocityValueX(gen);
     
     m_lifetime = lifetimeValue(gen);
     m_position = m_initPos;
-    m_velocity = Vector3D(velocityValue(gen) * 300, velocityValue(gen) * 300, 0);
+    m_velocity = Vector3D(velocityValueX(gen) * 300, velocityValueY(gen) * 300, 0);
+    m_force = Vector3D(0,980,0);
 }
 
 void Particle::Tick(float _deltaTime)
 {
+    m_acceleration = m_force;
     m_velocity += m_acceleration * _deltaTime;
     Vector3D newPos = m_position + (m_velocity * _deltaTime);
     m_position = newPos;
@@ -64,17 +75,13 @@ void Particle::Tick(float _deltaTime)
 
     if(m_collisions)
     {
-        if((m_position.Y>= 600))
+        for (Component* comp : m_components)
         {
-            Vector3D vr = m_velocity; //Relative velocity normalized of the ball with the ground
-            Vector3D vn = Vector3D(0, 1, 0); //Normal vector of the ground
-            
-            if(Vector3D::DotProduct(vr.Normalize(), vn) >= 0) //Check the direction of the ball
-            {
-                m_velocity = (Vector3D(vr.X,  vr.Y * -0.5f, 0));
-            }
+            comp->Tick();
         }
     }
+
+    m_force = Vector3D(0,980,0);
 
 }
 
@@ -87,10 +94,7 @@ void Particle::Draw()
     }
 }
 
-void Particle::SetVelocity(const Vector3D& _vel)
-{
-    m_velocity = _vel;
-}
+
 
 void Particle::SetInitPos(const Vector3D& _initPos)
 {
@@ -102,10 +106,16 @@ void Particle::SetInitVelocity(const Vector3D& _initVelocity)
     m_initVelocity = _initVelocity;
 }
 
-void Particle::setAcceleration(const Vector3D& _acceleration)
+void Particle::AddForce(const Vector3D& _force)
 {
-    m_acceleration = _acceleration;
+    m_force += _force;
 }
+
+void Particle::SetForce(const Vector3D& _force)
+{
+    m_force = _force;
+}
+
 
 void Particle::checkCollisions(bool _value)
 {

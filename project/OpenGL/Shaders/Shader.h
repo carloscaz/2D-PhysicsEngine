@@ -19,6 +19,6 @@ public:
     unsigned int GetId();
     static Shader* Load(const char* _vertexFile, const char* _fragmentFile);
 
-    void SetMatrix(const Vector3D& _pos, const Vector3D& _scale);
+    void SetMatrix(const Vector3D& _pos, const Vector3D& _scale, float offsetX = 0, float offsetY = 0);
     
 };

@@ -1,29 +1,35 @@
 #pragma once
-#include "../Entity.h"
+#include "../MovableEntity.h"
 #include "../../Components/CollisionComponent/CollisionComponent.h"
 
-class Particle : public Entity
+class Particle : public MovableEntity
 {
 private:
-    Vector3D m_velocity;
-    Vector3D m_acceleration = Vector3D(0,0,0);
+
+    Vector3D m_force;
     Vector3D m_initPos;
     Vector3D m_initVelocity;
+
+    float m_minVelocityX = -1.0f;
+    float m_maxVelocityX = 1.0f;
+    float m_minVelocityY = -1.0f;
+    float m_maxVelocityY = 1.0f;
 
     bool m_collisions;
 
 public:
-    Particle();
+    Particle(float _minVelocityX, float _maxVelocityX, float _minVelocityY, float _maxVelocityY);
 
     void Init() override;
     
     void Tick(float _deltaTime) override;
     void Draw() override;
 
-    void SetVelocity(const Vector3D& _vel);
+    
     void SetInitPos(const Vector3D& _initPos);
     void SetInitVelocity(const Vector3D& _initVelocity);
-
-    void setAcceleration(const Vector3D& _acceleration);
+    void AddForce(const Vector3D& _force);
+    void SetForce(const Vector3D& _force);
+    
     void checkCollisions(bool _value);
 };

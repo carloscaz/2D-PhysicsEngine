@@ -34,6 +34,19 @@ Entity::Entity()
     m_buffer = new Buffer(vertices, indices, sizeof(vertices), sizeof(indices));
 }
 
+Entity::~Entity()
+{
+    delete &m_window;
+    delete m_texture;
+    delete m_buffer;
+    delete m_shader;
+
+    for (Component* comp : m_components)
+    {
+        delete comp;
+    }
+}
+
 void Entity::SetTexture(const char* _filename)
 {
     m_texture = Texture::Load(_filename);
@@ -44,7 +57,7 @@ void Entity::SetTexture(const char* _filename)
         glUniform1i(texSamplerLoc, 0);
     }
     
-    SetScale(Vector3D(m_texture->GetTextureData().texWidth * 4, m_texture->GetTextureData().texHeight  * 4, 1));
+    //SetScale(Vector3D(m_texture->GetTextureData().texWidth * 4, m_texture->GetTextureData().texHeight  * 4, 1));
 
 }
 
@@ -77,6 +90,7 @@ bool Entity::GetActive()
 {
     return m_active;
 }
+
 
 void Entity::AddComponent(Component* _component)
 {
@@ -117,7 +131,7 @@ void Entity::Draw()
     glBindTexture(GL_TEXTURE_2D, m_texture->tex);
 
     //Set MVP matrix
-    m_shader->SetMatrix(m_position, m_scale);
+    m_shader->SetMatrix(m_position, m_scale, m_texture->GetTextureData().texHeight/4, m_texture->GetTextureData().texHeight/4);
 
     //Draw entity
     m_buffer->Draw(m_shader, DrawModes::TRIANGLES);
