@@ -18,6 +18,7 @@
 #include "../project/Entities/Ball/Ball.h"
 #include "../project/Entities/Particle/Particle.h"
 #include "../project/OpenGL/Shaders/Shader.h"
+#include "../project/OpenGL/State/State.h"
 #include "../project/OpenGL/Textures/Texture.h"
 
 #define SCREEN_WIDTH 800
@@ -64,6 +65,13 @@ void mouse_button_callback(GLFWwindow* window, int button, int action, int mods)
     }
 }
 
+void window_size_callback(GLFWwindow* window, int width, int height)
+{
+    // glfwGetWindowSize(window, &width, &height);
+    glViewport(0, 0, width, height);
+    State::Getinstance()->SetWindowsSize(Vector2D(width, height));
+}
+
 int main()
 {
     //Init GLFW & Glew
@@ -106,7 +114,16 @@ int main()
 
     //Callbacks of GLFW
     glfwSetMouseButtonCallback(win, mouse_button_callback);
-    
+
+    //Get window size
+    int screenWidth, screenHeight;
+    glfwGetWindowSize(win, &screenWidth, &screenHeight);
+    State::Getinstance()->SetWindowsSize(Vector2D(screenWidth, screenHeight));
+
+    glfwSetWindowSizeCallback(win, window_size_callback);
+
+    MovableEntity* test = new MovableEntity();
+    Vector3D force = Vector3D(2000,0,0);
     // main loop
     double lastTime = glfwGetTime();
     while (!glfwWindowShouldClose(win) && !glfwGetKey(win, GLFW_KEY_ESCAPE))
@@ -116,12 +133,20 @@ int main()
         lastTime = glfwGetTime();
         myWorld->SetDeltaTime(deltaTime);
 
-        //printf("DeltaTime: %f\n", deltaTime);
+        Vector3D dForce = test->GetVelocity() * -10;
+        Vector3D Fforce = force + dForce;
         
-        //Get window size
-        int screenWidth, screenHeight;
-        glfwGetWindowSize(win, &screenWidth, &screenHeight);
+        printf("FORCE: (%f, %f, %f)         ", Fforce.X, Fforce.Y, Fforce.Z);
+        printf("DFORCE: (%f, %f, %f)         ", Fforce.X, Fforce.Y, Fforce.Z);
+        Vector3D tAcceleration = Fforce / 100;
+        test->SetAcceleration(tAcceleration);
+        printf("Acc: (%f, %f, %f)           ", tAcceleration.X, tAcceleration.Y, tAcceleration.Z);
+        
+        Vector3D tVelocity = test->GetVelocity() + test->GetAcceleration() * deltaTime;
+        test->SetVelocity(tVelocity);
+        printf("Vel: (%f, %f, %f)\n", tVelocity.X, tVelocity.Y, tVelocity.Z);
 
+        //printf("DeltaTime: %f\n", deltaTime);
 
         double mousePositionX;
         double mousePositionY;

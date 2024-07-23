@@ -11,11 +11,6 @@ Ball::Ball()
     m_lifetime = 10.0f;
 }
 
-Vector3D Ball::GetVelocity()
-{
-    return m_velocity;
-}
-
 float Ball::GetRadius()
 {
     return m_radius;

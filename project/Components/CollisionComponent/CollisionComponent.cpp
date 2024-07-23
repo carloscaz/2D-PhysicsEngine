@@ -4,6 +4,7 @@
 #include "../../Entities/particle/particle.h"
 #include "../../OpenGL/Textures/Texture.h"
 #include "../../Entities/MovableEntity.h"
+#include "../../OpenGL/State/State.h"
 
 CollisionComponent::CollisionComponent(Entity* _owner)
 {
@@ -29,7 +30,7 @@ void CollisionComponent::Tick()
             }
         }
 
-        if(particle->GetPosition().X >= 800)
+        if(particle->GetPosition().X >= State::Getinstance()->GetWindowSize().X)
         {
             Vector3D vr = particle->GetVelocity().Normalize(); //Relative velocity normalized of the particle with the ground
             Vector3D vn = Vector3D(-1, 0, 0); //Normal vector of the ground
@@ -51,7 +52,7 @@ void CollisionComponent::Tick()
             }
         }
 
-        if((particle->GetPosition().Y >= 600))
+        if((particle->GetPosition().Y >= State::Getinstance()->GetWindowSize().Y))
         {
             Vector3D vr = particle->GetVelocity(); //Relative velocity normalized of the particle with the ground
             Vector3D vn = Vector3D(0, 1, 0); //Normal vector of the ground

@@ -10,6 +10,8 @@
 #include <iostream>
 #include <sstream>
 
+#include "../State/State.h"
+
 unsigned int Shader::GetId()
 {
     return m_id;
@@ -25,7 +27,7 @@ void Shader::SetMatrix(const Vector3D& _pos, const Vector3D& _scale, float offse
     model = glm::rotate(model, glm::radians(0.0f), glm::vec3(0.0f, 1.0f, 0.0f));
     model = glm::scale(model, glm::vec3(_scale.X, _scale.Y, _scale.Z));
 
-    glm::mat4 proj = glm::ortho(0.0f, 800.0f, 600.0f, 0.0f, -1.0f, 1.0f);
+    glm::mat4 proj = glm::ortho(0.0f, State::Getinstance()->GetWindowSize().X, State::Getinstance()->GetWindowSize().Y, 0.0f, -1.0f, 1.0f);
 
     glm::mat4 view = glm::mat4(1.0f);
     //view = glm::translate(view, glm::vec3(0.0f, 0.0f, 2.0f));

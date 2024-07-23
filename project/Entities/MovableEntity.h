@@ -16,6 +16,7 @@ public:
     
     float GetLifetime() const;
     Vector3D GetVelocity() const;
+    Vector3D GetAcceleration() const;
 
     
     void SetVelocity(const Vector3D& _vel);

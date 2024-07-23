@@ -22,8 +22,8 @@ void SetUp2D(float _screenWidht, float _screenHeight)
     // glDisableClientState(GL_NORMAL_ARRAY);
     // glEnableClientState(GL_TEXTURE_COORD_ARRAY);
 
-    // glViewport(0, 0, _screenWidht, _screenHeight);
-    // glScissor(0, 0, _screenWidht, _screenHeight);
+    glViewport(0, 0, _screenWidht, _screenHeight);
+    glScissor(0, 0, _screenWidht, _screenHeight);
     // glMatrixMode(GL_PROJECTION);
     // glLoadIdentity();
     // glOrtho(0, _screenWidht, _screenHeight, 0, 0, 1000);

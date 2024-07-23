@@ -12,8 +12,7 @@ private:
     bool m_gravity = false;
 public:
     Ball();
-
-    Vector3D GetVelocity();
+    
     float GetRadius();
     float GetRestitution();
     

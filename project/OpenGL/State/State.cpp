@@ -3,9 +3,14 @@
 State* State::m_instance = nullptr;
 
 
-GLFWwindow* State::GetWindow()
+GLFWwindow* State::GetWindow() const
 {
 	return m_window;
+}
+
+Vector2D State::GetWindowSize() const
+{
+	return m_windowSize;
 }
 
 State* State::Getinstance()
@@ -25,4 +30,9 @@ void State::SetWindow(GLFWwindow* _win)
 	{
 		m_window = _win;
 	}
+}
+
+void State::SetWindowsSize(const Vector2D& _value)
+{
+	m_windowSize = _value;
 }

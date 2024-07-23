@@ -24,6 +24,11 @@ Vector3D MovableEntity::GetVelocity() const
     return m_velocity;
 }
 
+Vector3D MovableEntity::GetAcceleration() const
+{
+    return m_acceleration;
+}
+
 void MovableEntity::SetVelocity(const Vector3D& _vel)
 {
     m_velocity = _vel;
