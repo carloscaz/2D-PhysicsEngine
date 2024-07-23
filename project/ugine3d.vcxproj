@@ -140,6 +140,7 @@
     <ClInclude Include="..\lib\glfw\glfw3.h" />
     <ClInclude Include="..\lib\glfw\glfw3native.h" />
     <ClInclude Include="..\src\Vertex\Vertex.h" />
+    <ClInclude Include="Components\CollisionComponent\BallCollisionComponent.h" />
     <ClInclude Include="Components\CollisionComponent\CollisionComponent.h" />
     <ClInclude Include="Components\Component.h" />
     <ClInclude Include="Entities\Ball\Ball.h" />
@@ -167,6 +168,7 @@
     <ClCompile Include="..\lib\glew\glew.c" />
     <ClCompile Include="..\src\main.cpp" />
     <ClCompile Include="..\src\Vertex\Vertex.cpp" />
+    <ClCompile Include="Components\CollisionComponent\BallCollisionComponent.cpp" />
     <ClCompile Include="Components\CollisionComponent\CollisionComponent.cpp">
       <RuntimeLibrary>MultiThreadedDebugDll</RuntimeLibrary>
       <BasicRuntimeChecks>EnableFastChecks</BasicRuntimeChecks>

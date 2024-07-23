@@ -95,6 +95,7 @@ bool Entity::GetActive()
 void Entity::AddComponent(Component* _component)
 {
     m_components.push_back(_component);
+    _component->SetOwner(this);
 }
 
 void Entity::SetWindow(GLFWwindow* _win)

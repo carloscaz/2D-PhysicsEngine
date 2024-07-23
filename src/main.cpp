@@ -9,12 +9,10 @@
 #include <vector>
 #include <GL/wglew.h>
 
+#include "../project/Components/CollisionComponent/BallCollisionComponent.h"
 #include "../project/Entities/Entity.h"
 #include "../project/OpenGL/Utils/GL_Utils.h"
 #include "../project//Entities/World.h"
-#include "../project/Entities/ForceField.h"
-#include "../project/Entities/Emitter/SparkEmitter/GravitySparkEmitter.h"
-#include "../project/Entities/Emitter/SparkEmitter/SparkJetEmitter.h"
 #include "../project/Entities/Ball/Ball.h"
 #include "../project/Entities/Particle/Particle.h"
 #include "../project/OpenGL/Shaders/Shader.h"
@@ -24,46 +22,6 @@
 #define SCREEN_WIDTH 800
 #define SCREEN_HEIGHT 600
 
-ForceField* forceField;
-
-void SparkEmitterDemo(float mouseX, float mouseY)
-{
-    SparkEmitter* myEmitter = new SparkEmitter(Vector3D(mouseX, mouseY, 0));
-    World::GetInstance()->AddEntity(myEmitter);
-}
-
-void GravitySparkDemo(float mouseX, float mouseY)
-{
-    GravitySparkEmitter* myGravitySparkEmitter = new GravitySparkEmitter(Vector3D(mouseX, mouseY, 0));
-    World::GetInstance()->AddEntity(myGravitySparkEmitter);
-}
-
-void ForceFieldEmitterDemo(float mouseX, float mouseY)
-{
-    SparkJetEmitter* myJetEmitter = new SparkJetEmitter(Vector3D(mouseX, mouseY, 0));
-    World::GetInstance()->AddEntity(myJetEmitter);
-
-    forceField->SetEmitter(myJetEmitter);
-}
-void mouse_button_callback(GLFWwindow* window, int button, int action, int mods)
-{
-    if (button == GLFW_MOUSE_BUTTON_LEFT && action == GLFW_PRESS)
-    {
-        double mousePositionX;
-        double mousePositionY;
-        glfwGetCursorPos(window, &mousePositionX, &mousePositionY);
-
-        // //Spark emitter of particles without gravity. Uncomment to add to the program
-        // SparkEmitterDemo(mousePositionX, mousePositionY);
-        //
-        // //Spark emitter of particles with gravity. Uncomment to add to the program
-        GravitySparkDemo(mousePositionX, mousePositionY);
-
-        //Particle emitter affected by a force field. Uncomment to add to the program
-        // ForceFieldEmitterDemo(mousePositionX, mousePositionY);
-
-    }
-}
 
 void window_size_callback(GLFWwindow* window, int width, int height)
 {
@@ -83,23 +41,15 @@ int main()
 
     //Shader creation
     Shader* basicShader = Shader::Load("data/SpriteShader/vertex.glsl", "data/SpriteShader/fragment.glsl");
-    
-    // forceField = new ForceField();
-    // forceField->SetVelocity(Vector3D(0,0,0));
-    // forceField->SetShader(basicShader);
-    // forceField->SetTexture("data/Textures/ForceField2.png");
-    // forceField->SetPosition(Vector3D(400 , 300, 0));
-    // forceField->SetScale(Vector3D(forceField->GetTexture()->GetTextureData().texWidth,forceField->GetTexture()->GetTextureData().texHeight,0));
-    // World::GetInstance()->AddEntity(forceField);
 
-
-    // Ball* ball = new Ball();
-    // ball->SetVelocity(Vector3D(0,0,0));
-    // ball->SetShader(basicShader);
-    // ball->SetTexture("data/Textures/Ball.png");
-    // ball->SetPosition(Vector3D(100, 300, 0));
-    // ball->SetScale(Vector3D(ball->GetTexture()->GetTextureData().texWidth,ball->GetTexture()->GetTextureData().texHeight,0));
-    // World::GetInstance()->AddEntity(ball);
+    Ball* ball = new Ball();
+    ball->SetVelocity(Vector3D(100,0,0));
+    ball->SetShader(basicShader);
+    ball->SetTexture("data/Textures/Ball.png");
+    ball->SetPosition(Vector3D(100, 300, 0));
+    ball->SetScale(Vector3D(ball->GetTexture()->GetTextureData().texWidth * 3,ball->GetTexture()->GetTextureData().texHeight * 3,0));
+    ball->AddComponent(new BallCollisionComponent(ball));
+    World::GetInstance()->AddEntity(ball);
 
     //World Creation
     World* myWorld = World::GetInstance();
@@ -109,11 +59,9 @@ int main()
     SetUp2D(SCREEN_WIDTH, SCREEN_HEIGHT);
 
     //Inputs modes of GLFW
-    //glfwSetInputMode(win, GLFW_CURSOR, GLFW_CURSOR_HIDDEN);
-    //glfwSetInputMode(win, GLFW_STICKY_MOUSE_BUTTONS, GLFW_TRUE);
+    glfwSetInputMode(win, GLFW_CURSOR, GLFW_CURSOR_HIDDEN);
 
     //Callbacks of GLFW
-    glfwSetMouseButtonCallback(win, mouse_button_callback);
 
     //Get window size
     int screenWidth, screenHeight;
@@ -133,38 +81,11 @@ int main()
         lastTime = glfwGetTime();
         myWorld->SetDeltaTime(deltaTime);
 
-        Vector3D dForce = test->GetVelocity() * -10;
-        Vector3D Fforce = force + dForce;
-        
-        printf("FORCE: (%f, %f, %f)         ", Fforce.X, Fforce.Y, Fforce.Z);
-        printf("DFORCE: (%f, %f, %f)         ", Fforce.X, Fforce.Y, Fforce.Z);
-        Vector3D tAcceleration = Fforce / 100;
-        test->SetAcceleration(tAcceleration);
-        printf("Acc: (%f, %f, %f)           ", tAcceleration.X, tAcceleration.Y, tAcceleration.Z);
-        
-        Vector3D tVelocity = test->GetVelocity() + test->GetAcceleration() * deltaTime;
-        test->SetVelocity(tVelocity);
-        printf("Vel: (%f, %f, %f)\n", tVelocity.X, tVelocity.Y, tVelocity.Z);
-
         //printf("DeltaTime: %f\n", deltaTime);
 
         double mousePositionX;
         double mousePositionY;
         glfwGetCursorPos(win, &mousePositionX, &mousePositionY);
-        
-        //forceField->SetPosition(Vector3D(mousePositionX, mousePositionY, 0));
-        
-        //Vector3D distance = ball->GetPosition() - forceField->GetPosition();
-        // ball->SetVelocity(direction * -1);
-
-        // printf("Field position: (%f, %f)\n", ball->GetPosition().X, ball->GetPosition().Y);
-        // printf("Distance: %f\n", distance.Size());
-        //
-        // if(distance.Size() <= ball->GetTexture()->GetTextureData().texWidth/4 + forceField->GetTexture()->GetTextureData().texWidth/4)
-        // {
-        //     printf("COLLIDES\n");
-        // }
-        
         
         glClear(GL_COLOR_BUFFER_BIT);
         glClear(GL_DEPTH_BUFFER_BIT);
