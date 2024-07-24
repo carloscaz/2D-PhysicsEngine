@@ -28,11 +28,13 @@ void Ball::SetGravity(bool _value)
 
 void Ball::Tick(float _deltaTime)
 {
+    m_force = Vector3D(0,0,0);
     for (Component* component : m_components)
     {
         component->Tick();
     }
     
+    m_acceleration = m_force / m_mass;
     m_velocity += m_acceleration * _deltaTime;
     Vector3D newPos = m_position + (m_velocity * _deltaTime);
     m_position = newPos;

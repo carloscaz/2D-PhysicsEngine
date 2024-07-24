@@ -5,7 +5,7 @@ class Ball : public MovableEntity
 {
 private:
     float m_radius;
-    const float m_restitutionCoefficient = 0.85f;
+    const float m_restitutionCoefficient = 1.0f;
 
     bool m_gravity = false;
 public:

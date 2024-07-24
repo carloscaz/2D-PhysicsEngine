@@ -42,19 +42,15 @@ int main()
     //Shader creation
     Shader* basicShader = Shader::Load("data/SpriteShader/vertex.glsl", "data/SpriteShader/fragment.glsl");
 
-    Ball* ball = new Ball();
-    ball->SetVelocity(Vector3D(100,0,0));
-    ball->SetShader(basicShader);
-    ball->SetTexture("data/Textures/Ball.png");
-    ball->SetPosition(Vector3D(100, 300, 0));
-    ball->SetScale(Vector3D(ball->GetTexture()->GetTextureData().texWidth * 3,ball->GetTexture()->GetTextureData().texHeight * 3,0));
-    ball->AddComponent(new BallCollisionComponent(ball));
-    World::GetInstance()->AddEntity(ball);
 
+
+
+    
+   
+    
     //World Creation
     World* myWorld = World::GetInstance();
     
-
     //Set up env
     SetUp2D(SCREEN_WIDTH, SCREEN_HEIGHT);
 
@@ -70,8 +66,46 @@ int main()
 
     glfwSetWindowSizeCallback(win, window_size_callback);
 
-    MovableEntity* test = new MovableEntity();
-    Vector3D force = Vector3D(2000,0,0);
+    //Entities creation
+    std::random_device rd;
+    std::mt19937 gen(rd());
+    std::uniform_real_distribution<> distrVelocity(-1.0f, 1.0f); //Random number for velocity
+    std::uniform_real_distribution<> distrPositionX(0, State::Getinstance()->GetWindowSize().X); //Random number for position in X
+    std::uniform_real_distribution<> distrPositionY(0, State::Getinstance()->GetWindowSize().Y); //Random number for position in X
+    
+    for (int i = 0; i < 100; ++i)
+    {
+        Ball* ball = new Ball();
+        ball->SetVelocity(Vector3D(distrVelocity(gen),distrVelocity(gen),0) * 100);
+        ball->SetShader(basicShader);
+        ball->SetTexture("data/Textures/Ball.png");
+        ball->SetPosition(Vector3D(distrPositionX(gen), distrPositionY(gen), 0));
+        ball->SetScale(Vector3D(ball->GetTexture()->GetTextureData().texWidth * 3,ball->GetTexture()->GetTextureData().texHeight * 3,0));
+        ball->SetRadius(ball->GetTexture()->GetTextureData().texWidth / 2);
+        ball->AddComponent(new BallCollisionComponent(ball));
+        World::GetInstance()->AddEntity(ball);
+    }
+
+    // Ball* ball = new Ball();
+    // ball->SetVelocity(Vector3D(1,-0.2f,0) * 100);
+    // ball->SetShader(basicShader);
+    // ball->SetTexture("data/Textures/Ball.png");
+    // ball->SetPosition(Vector3D(130, 500, 0));
+    // ball->SetScale(Vector3D(ball->GetTexture()->GetTextureData().texWidth * 3,ball->GetTexture()->GetTextureData().texHeight * 3,0));
+    // ball->SetRadius(ball->GetTexture()->GetTextureData().texWidth / 2);
+    // ball->AddComponent(new BallCollisionComponent(ball));
+    // World::GetInstance()->AddEntity(ball);
+    //
+    // Ball* ball2 = new Ball();
+    // ball2->SetVelocity(Vector3D(-0.5f,0.4,0) * 100);
+    // ball2->SetShader(basicShader);
+    // ball2->SetTexture("data/Textures/Ball.png");
+    // ball2->SetPosition(Vector3D(600, 300, 0));
+    // ball2->SetScale(Vector3D(ball2->GetTexture()->GetTextureData().texWidth * 3,ball2->GetTexture()->GetTextureData().texHeight * 3,0));
+    // ball2->SetRadius(ball2->GetTexture()->GetTextureData().texWidth / 2);
+    // ball2->AddComponent(new BallCollisionComponent(ball2));
+    // World::GetInstance()->AddEntity(ball2);
+    
     // main loop
     double lastTime = glfwGetTime();
     while (!glfwWindowShouldClose(win) && !glfwGetKey(win, GLFW_KEY_ESCAPE))
@@ -81,7 +115,7 @@ int main()
         lastTime = glfwGetTime();
         myWorld->SetDeltaTime(deltaTime);
 
-        //printf("DeltaTime: %f\n", deltaTime);
+        printf("DeltaTime: %f\n", deltaTime);
 
         double mousePositionX;
         double mousePositionY;

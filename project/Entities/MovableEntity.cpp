@@ -29,6 +29,11 @@ Vector3D MovableEntity::GetAcceleration() const
     return m_acceleration;
 }
 
+float MovableEntity::GetMass() const
+{
+    return m_mass;
+}
+
 void MovableEntity::SetVelocity(const Vector3D& _vel)
 {
     m_velocity = _vel;
@@ -37,6 +42,11 @@ void MovableEntity::SetVelocity(const Vector3D& _vel)
 void MovableEntity::SetAcceleration(const Vector3D& _acceleration)
 {
     m_acceleration = _acceleration;
+}
+
+void MovableEntity::AddForce(const Vector3D& _force)
+{
+    m_force += _force;
 }
 
 void MovableEntity::SetLifetime(float _lifetime)
