@@ -1,9 +1,10 @@
 #pragma once
 #include <vector>
-
+#include <iostream>
 #include "../../project/Math/Vector3D/Vector3D.h"
 #include "../Components/Component.h"
 
+class Vertex;
 class Buffer;
 class Shader;
 class Texture;
@@ -32,6 +33,7 @@ protected:
 
 public:
     Entity();
+    Entity(std::vector<Vertex> vertices, std::vector<unsigned int> _indices);
     ~Entity();
     
     virtual void Init() = 0;

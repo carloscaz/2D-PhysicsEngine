@@ -38,6 +38,36 @@ Buffer::Buffer(Vertex _vertices[], unsigned int _elements[], unsigned int _verti
     glEnableVertexAttribArray(2);
 }
 
+Buffer::Buffer(std::vector<Vertex> _vertices, std::vector<unsigned int> _indices)
+    :
+    sizeIndices(_vertices.size()),
+    sizeVertices(_indices.size())
+{
+    //Generation of the buffers
+    glGenBuffers(1, &VBO);
+    glGenBuffers(1, &EBO);
+    glGenVertexArrays(1, &VAO);
+
+    //Bind buffers
+    glBindVertexArray(VAO);
+    glBindBuffer(GL_ARRAY_BUFFER, VBO);
+    glBindBuffer(GL_ELEMENT_ARRAY_BUFFER, EBO);
+
+    //Update Buffers with data
+    glBufferData(GL_ARRAY_BUFFER, sizeVertices, _vertices.data(), GL_STATIC_DRAW);
+    glBufferData(GL_ELEMENT_ARRAY_BUFFER, sizeIndices, _indices.data(), GL_STATIC_DRAW);
+
+    //Configure AttribPointers
+    glVertexAttribPointer(0, 3, GL_FLOAT, GL_FALSE, sizeof(Vertex), (void*) offsetof(Vertex, m_pos));
+    glEnableVertexAttribArray(0);
+
+    glVertexAttribPointer(1, 3, GL_FLOAT, GL_FALSE, sizeof(Vertex), (void*) offsetof(Vertex, m_color));
+    glEnableVertexAttribArray(1);
+    
+    glVertexAttribPointer(2, 2, GL_FLOAT, GL_FALSE, sizeof(Vertex), (void*) offsetof(Vertex, m_tex));
+    glEnableVertexAttribArray(2);
+}
+
 void Buffer::Draw(Shader* _shader)
 {
     glUseProgram(_shader->GetId());

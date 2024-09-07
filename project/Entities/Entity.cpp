@@ -34,6 +34,11 @@ Entity::Entity()
     m_buffer = new Buffer(vertices, indices, sizeof(vertices), sizeof(indices));
 }
 
+Entity::Entity(std::vector<Vertex> vertices, std::vector<unsigned int> _indices)
+{
+    m_buffer = new Buffer(vertices.data(), _indices.data(), vertices.size(), _indices.size());
+}
+
 Entity::~Entity()
 {
     delete &m_window;

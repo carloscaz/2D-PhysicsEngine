@@ -85,26 +85,6 @@ int main()
         ball->AddComponent(new BallCollisionComponent(ball));
         World::GetInstance()->AddEntity(ball);
     }
-
-    // Ball* ball = new Ball();
-    // ball->SetVelocity(Vector3D(1,-0.2f,0) * 100);
-    // ball->SetShader(basicShader);
-    // ball->SetTexture("data/Textures/Ball.png");
-    // ball->SetPosition(Vector3D(130, 500, 0));
-    // ball->SetScale(Vector3D(ball->GetTexture()->GetTextureData().texWidth * 3,ball->GetTexture()->GetTextureData().texHeight * 3,0));
-    // ball->SetRadius(ball->GetTexture()->GetTextureData().texWidth / 2);
-    // ball->AddComponent(new BallCollisionComponent(ball));
-    // World::GetInstance()->AddEntity(ball);
-    //
-    // Ball* ball2 = new Ball();
-    // ball2->SetVelocity(Vector3D(-0.5f,0.4,0) * 100);
-    // ball2->SetShader(basicShader);
-    // ball2->SetTexture("data/Textures/Ball.png");
-    // ball2->SetPosition(Vector3D(600, 300, 0));
-    // ball2->SetScale(Vector3D(ball2->GetTexture()->GetTextureData().texWidth * 3,ball2->GetTexture()->GetTextureData().texHeight * 3,0));
-    // ball2->SetRadius(ball2->GetTexture()->GetTextureData().texWidth / 2);
-    // ball2->AddComponent(new BallCollisionComponent(ball2));
-    // World::GetInstance()->AddEntity(ball2);
     
     // main loop
     double lastTime = glfwGetTime();
